@@ -703,6 +703,9 @@ body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area
 .tab[aria-current="true"]::after{background:#2E7D3A}
 .tab[aria-current="true"] svg{fill:rgba(46,125,58,.14)}
 .btn.primary{background:#2E8B3E;border-color:#2E8B3E}
+.greet .brand{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.greet .brand img{width:30px;height:30px;object-fit:contain;background:#fff;border-radius:9px;padding:3px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.greet .brand em{font-style:normal;font-weight:700;font-size:15px;color:#fff;letter-spacing:.02em}
 #toast{background:#1F5A2B}
 </style>
 </head>
@@ -1136,7 +1139,7 @@ function renderHead(){
   const sub=u.role==='driver'?'Карай отговорно!':u.role==='manager'?`Отдел: ${dname(u.dept)}`:'Администратор · пълен контрол';
   const MN=['януари','февруари','март','април','май','юни','юли','август','септември','октомври','ноември','декември'];
   $('.top').classList.toggle('hero',R.tab==='home');
-  setHTML($('#topIn'),`<div class="greet"><small class="rl">${{driver:'🚗 ШОФЬОР',manager:'🏢 МЕНИДЖЪР',admin:'⭐ АДМИНИСТРАТОР'}[u.role]}</small><b>${hi}, <span class="nw">${esc(u.name.split(' ')[0])}! <span class="gemo">${h<11?'☀️':h<18?'👋':'🌙'}</span></span></b><span>${['неделя','понеделник','вторник','сряда','четвъртък','петък','събота'][d.getDay()]}, ${d.getDate()} ${MN[d.getMonth()]} · ${esc(sub)}</span></div>
+  setHTML($('#topIn'),`<div class="greet"><div class="brand"><img src="logo.png" alt=""><em>Magnalabs</em></div><small class="rl">${{driver:'🚗 ШОФЬОР',manager:'🏢 МЕНИДЖЪР',admin:'⭐ АДМИНИСТРАТОР'}[u.role]}</small><b>${hi}, <span class="nw">${esc(u.name.split(' ')[0])}! <span class="gemo">${h<11?'☀️':h<18?'👋':'🌙'}</span></span></b><span>${['неделя','понеделник','вторник','сряда','четвъртък','петък','събота'][d.getDay()]}, ${d.getDate()} ${MN[d.getMonth()]} · ${esc(sub)}</span></div>
     <button class="bell" data-act="tab" data-k="tasks" aria-label="Известия">${icon('bell')}${n?`<i>${n}</i>`:''}</button>`);
 }
 /* сменя съдържанието само ако е различно – без прескачане при опресняване */
@@ -2473,7 +2476,7 @@ function logoutLocal(){TOKEN=null;meId=null;try{localStorage.removeItem('pkk_tok
 async function refresh(){if(!TOKEN)return;try{const d=await gs('getAll',TOKEN);if(CACHE&&JSON.stringify(d)===JSON.stringify(CACHE))return;applyData(d)}catch(e){const m=mapErr(e);if(TOKEN)toast(m.message)}}
 setInterval(()=>{if(TOKEN&&document.visibilityState==='visible'&&$('#sheet').hidden)refresh()},45000);
 /* само обновяване: при всяка промяна вдигай APP_VER */
-const APP_VER='2';let _verAt=0;
+const APP_VER='3';let _verAt=0;
 async function checkUpdate(){
   if(location.protocol==='file:'||Date.now()-_verAt<60000)return;_verAt=Date.now();
   try{const t=await(await fetch(location.pathname+'?chk='+Date.now(),{cache:'no-store'})).text();
