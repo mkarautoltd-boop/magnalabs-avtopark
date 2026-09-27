@@ -708,6 +708,9 @@ body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area
 .greet .brand em{font-style:normal;font-weight:700;font-size:15px;color:#fff;letter-spacing:.02em}
 body::before{background:#174A22!important}
 .login{padding-top:calc(env(safe-area-inset-top,0px) + 28px)}
+#sheet{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}
+.sheet-card{max-height:100%}
+.sheet-head{background:radial-gradient(circle at 105% -20%,rgba(155,200,90,.40) 0,rgba(155,200,90,0) 50%),linear-gradient(135deg,#174A22 0%,#23692F 70%,#3A8F45 100%)!important}
 #toast{background:#1F5A2B}
 </style>
 </head>
@@ -2461,7 +2464,7 @@ function logoutLocal(){TOKEN=null;meId=null;try{localStorage.removeItem('pkk_tok
 async function refresh(){if(!TOKEN)return;try{const d=await gs('getAll',TOKEN);if(CACHE&&JSON.stringify(d)===JSON.stringify(CACHE))return;applyData(d)}catch(e){const m=mapErr(e);if(TOKEN)toast(m.message)}}
 setInterval(()=>{if(TOKEN&&document.visibilityState==='visible'&&$('#sheet').hidden)refresh()},45000);
 /* само обновяване: при всяка промяна вдигай APP_VER */
-const APP_VER='5';let _verAt=0;
+const APP_VER='6';let _verAt=0;
 async function checkUpdate(){
   if(location.protocol==='file:'||Date.now()-_verAt<60000)return;_verAt=Date.now();
   try{const t=await(await fetch(location.pathname+'?chk='+Date.now(),{cache:'no-store'})).text();
