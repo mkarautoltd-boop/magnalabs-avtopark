@@ -6,15 +6,15 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Пътна книжка">
-<meta name="theme-color" content="#0E2748">
+<meta name="apple-mobile-web-app-title" content="Magnalabs">
+<meta name="theme-color" content="#1F5A2B">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-180.png">
-<title>Пътна книжка</title>
+<title>Magnalabs · Автопарк</title>
 <meta name="description" content="Електронна пътна книжка: километри, гориво, проверки и задачи – в телефона ти.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Пътна книжка">
-<meta property="og:title" content="Пътна книжка">
+<meta property="og:site_name" content="Magnalabs · Автопарк">
+<meta property="og:title" content="Magnalabs · Автопарк">
 <meta property="og:description" content="Километри, гориво, проверки и задачи – в телефона ти.">
 <meta property="og:url" content="https://mkarautoltd-boop.github.io/magnalabs-avtopark/putna.html">
 <meta property="og:image" content="https://mkarautoltd-boop.github.io/magnalabs-avtopark/share.jpg">
@@ -691,6 +691,19 @@ body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area
  .drvhome .qt .ql{font-size:13.5px;letter-spacing:-.02em}
  .drvhome.wrap{gap:12px}
 }
+/* ---- Magnalabs: фирмена визия (зелено) ---- */
+:root{--navy:#1F5A2B;--navy2:#2E7D3A;--navy-sub:#CFE6C4;--accent:#2E8B3E;--accent-soft:#E7F4E4;--t-blue:#3E9A4B}
+.top{background:radial-gradient(circle at 110% -10%,rgba(155,200,90,.45) 0,rgba(155,200,90,0) 45%),linear-gradient(135deg,#174A22 0%,#23692F 65%,#3A8F45 100%)!important;box-shadow:0 6px 20px rgba(23,74,34,.28)}
+.greet .rl{color:#E3F2D9}
+.bell i{border-color:#23692F}
+.login{background:linear-gradient(180deg,#174A22 0,#2E7D3A 280px,#EEF4EC 280px)}
+.login-mark .logo.ml{background:#fff;box-shadow:0 6px 16px rgba(10,40,15,.35);padding:5px}
+.login-mark .logo.ml img{width:100%;height:100%;object-fit:contain;display:block}
+.tab[aria-current="true"]{color:#2E7D3A}
+.tab[aria-current="true"]::after{background:#2E7D3A}
+.tab[aria-current="true"] svg{fill:rgba(46,125,58,.14)}
+.btn.primary{background:#2E8B3E;border-color:#2E8B3E}
+#toast{background:#1F5A2B}
 </style>
 </head>
 <body>
@@ -700,8 +713,8 @@ body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area
 <div id="loginView" class="login" hidden>
   <form class="login-card" id="loginForm">
     <div class="login-mark">
-      <div class="logo"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17h14M4 17v-4l2-5.2A1.5 1.5 0 0 1 7.4 7h9.2a1.5 1.5 0 0 1 1.4.8L20 13v4"/><circle cx="7.5" cy="17" r="2"/><circle cx="16.5" cy="17" r="2"/><path d="M4 13h16"/></svg></div>
-      <div><h1>Пътна книжка</h1><p>Електронна пътна книжка и автопарк</p></div>
+      <div class="logo ml"><img src="logo.png" alt="Magnalabs"></div>
+      <div><h1>Magnalabs</h1><p>Електронна пътна книжка и автопарк</p></div>
     </div>
     <div class="panel">
       <label class="fld"><span>Потребителско име</span><input id="lu" name="u" autocomplete="username" autocapitalize="none" required></label>
@@ -2250,7 +2263,7 @@ async function downloadCsv(){
   const csv='﻿'+[lastCsv.head,...lastCsv.rows].map(r=>r.map(q).join(';')).join('\r\n');
   toast('Създаване на файла…');
   try{const url=await gs('exportCsv',TOKEN,`Отчет ${R.rep} ${today()}.csv`,csv);
-    openSheet('Отчетът е готов',`<p>Файлът е записан в Google Drive, в папка „Пътна книжка – отчети“. Отваря се и с Excel.</p><a class="btn primary wide" href="${esc(url)}" target="_blank" rel="noopener">Отвори файла</a>`,null)}
+    openSheet('Отчетът е готов',`<p>Файлът е записан в Google Drive, в папка „Пътна книжка Магналабс – отчети“. Отваря се и с Excel.</p><a class="btn primary wide" href="${esc(url)}" target="_blank" rel="noopener">Отвори файла</a>`,null)}
   catch(e){toast(mapErr(e).message)}
 }
 
@@ -2376,7 +2389,7 @@ async function printPdf(){
   let sc;try{sc=reportScope()}catch(e){toast('Избери автомобил или шофьор.');return}
   toast('Създаване на PDF… (5–10 сек.)');
   try{const url=await gs('makePdf',TOKEN,`${sc.title} ${sc.sub||''}`.replace(/[\\/:*?"<>|]/g,'-').trim(),printHtml(sc));
-    openSheet('PDF е готов',`<p>Файлът е записан в Google Drive, папка „Пътна книжка – отчети“. Отвори го и използвай „Сподели → Печат“.</p><a class="btn primary wide" href="${esc(url)}" target="_blank" rel="noopener">Отвори PDF</a>`,null)}
+    openSheet('PDF е готов',`<p>Файлът е записан в Google Drive, папка „Пътна книжка Магналабс – отчети“. Отвори го и използвай „Сподели → Печат“.</p><a class="btn primary wide" href="${esc(url)}" target="_blank" rel="noopener">Отвори PDF</a>`,null)}
   catch(e){toast(mapErr(e).message)}
 }
 
@@ -2460,7 +2473,7 @@ function logoutLocal(){TOKEN=null;meId=null;try{localStorage.removeItem('pkk_tok
 async function refresh(){if(!TOKEN)return;try{const d=await gs('getAll',TOKEN);if(CACHE&&JSON.stringify(d)===JSON.stringify(CACHE))return;applyData(d)}catch(e){const m=mapErr(e);if(TOKEN)toast(m.message)}}
 setInterval(()=>{if(TOKEN&&document.visibilityState==='visible'&&$('#sheet').hidden)refresh()},45000);
 /* само обновяване: при всяка промяна вдигай APP_VER */
-const APP_VER='1';let _verAt=0;
+const APP_VER='2';let _verAt=0;
 async function checkUpdate(){
   if(location.protocol==='file:'||Date.now()-_verAt<60000)return;_verAt=Date.now();
   try{const t=await(await fetch(location.pathname+'?chk='+Date.now(),{cache:'no-store'})).text();
